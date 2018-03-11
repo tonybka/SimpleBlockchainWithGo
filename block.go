@@ -41,3 +41,15 @@ func DeserializeBlock(d []byte) *Block {
 	}
 	return &block
 }
+
+//HashTransactions returns a hash of transaction in the block
+func (b *Block) HashTransactions() []byte {
+	var transactions [][]byte
+
+	for _, tx := range b.Transactions {
+		transactions = append(transactions, tx.Serialize())
+	}
+
+	mTree := NewMerkleTree(transactions)
+	return mTree.RootNode.Data
+}
