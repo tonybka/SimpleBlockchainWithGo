@@ -10,6 +10,10 @@ import (
 const version = byte(0x00)
 const addressChecksumLen = 4
 
+//Wallet store private key and public key
+type Wallet struct {
+}
+
 //HashPubKey hash the public key
 func HashPubKey(pubkey []byte) []byte {
 	pubSHA256 := sha256.Sum256(pubkey)
