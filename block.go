@@ -78,6 +78,6 @@ func (b *Block) HashTransactions() []byte {
 }
 
 //NewGenesisBlock create first block of blockchain
-func NewGenesisBlock() {
-
+func NewGenesisBlock(coinbaseTx *Transaction) *Block {
+	return NewBlock([]*Transaction{coinbaseTx}, []byte{}, 0)
 }

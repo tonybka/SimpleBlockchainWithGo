@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"os"
 )
@@ -21,6 +22,7 @@ func (cli *CLI) printUsage() {
 }
 
 func (cli *CLI) validateArgs() {
+	//if number of args is less than 2, default the fisrt arg is path of current excutable file
 	if len(os.Args) < 2 {
 		cli.printUsage()
 		os.Exit(1)
@@ -30,4 +32,27 @@ func (cli *CLI) validateArgs() {
 //Run parses command arguments and process command
 func (cli *CLI) Run() {
 	cli.validateArgs()
+	nodeID := os.Getenv("NODE_ID")
+
+	if nodeID == "" {
+		fmt.Printf("NODE_ID env value is not set!")
+		os.Exit(1)
+	}
+
+	getBalanceCmd := flag.NewFlagSet("getbalance", flag.ExitOnError)
+	createBlockchainCmd := flag.NewFlagSet("createblockchain", flag.ExitOnError)
+	createWalletCmd := flag.NewFlagSet("createwallet", flag.ExitOnError)
+	listAddressesCmd := flag.NewFlagSet("listaddresses", flag.ExitOnError)
+
+	switch os.Args[1] {
+	case "getbalance":
+		err := getBalanceCmd.Parse(os.Args[2:])
+		break
+	case "createblockchain":
+		err := createBlockchainCmd.Parse(os.Args[2:])
+		break
+	default:
+		cli.printUsage()
+		os.Exit(1)
+	}
 }

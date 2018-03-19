@@ -9,6 +9,11 @@ import (
 
 const subsidy = 10
 
+/**
+ - There are outputs that not linked to inputs
+ - Inputs can reference outputs from multiple transactions
+ - An input must reference an output
+**/
 // Transaction represents a Bitcoin transaction
 type Transaction struct {
 	ID     []byte
@@ -59,7 +64,7 @@ func (tx *Transaction) TrimmedCopy() Transaction {
 }
 
 //NewCoinbaseTX create new coinbase transaction
-func NewCoinbaseTX() {
+func NewCoinbaseTX(to, data string) *Transaction {
 
 }
 
